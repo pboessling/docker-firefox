@@ -1,10 +1,11 @@
-FROM node:6.12.3
+FROM ubuntu:14.04
 
-RUN set -xe \
+RUN apt-get update \
+  && DEBIAN_FRONTEND=noninteractive apt-get install -y sudo curl firefox \
+  && curl -sL https://deb.nodesource.com/setup_6.x | bash - \
   && apt-get update \
-  && apt-get install -y sudo fontconfig firefox-esr \
+  && DEBIAN_FRONTEND=noninteractive apt-get install -y nodejs \
   && rm -rf ~/.npm \
-  && npm cache clear --force \
   && rm -rf /var/lib/apt/lists/*
 
 VOLUME /app
